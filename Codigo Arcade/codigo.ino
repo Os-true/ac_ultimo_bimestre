@@ -5,25 +5,20 @@ int array[10];
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-#define BotA 5
-#define BotB 6
-#define BotC 7
-#define BotD 8
+#define BotA 2
+#define BotB 3
+#define BotC 4
+#define BotD 5
 
 // Alterar o endereço conforme modulo I2C
-LiquidCrystal_I2C lcd(0x27,20,4);
+LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3,POSITIVE);
 
 void setup(){
   Serial.begin(9600);
-  lcd.init();
-  lcd.backlight();
-  lcd.clear();
-  lcd.setCursor(0,0);
-  pinMode(7,INPUT);
-  pinMode(BotA, INPUT);
-  pinMode(BotB, INPUT);
-  pinMode(BotC, INPUT);
-  pinMode(BotD, INPUT);
+  pinMode(BotA, INPUT_PULLUP);
+  pinMode(BotB, INPUT_PULLUP);
+  pinMode(BotC, INPUT_PULLUP);
+  pinMode(BotD, INPUT_PULLUP);
  
   lcd.begin(20, 4);
   lcd.clear();
@@ -295,16 +290,16 @@ char AnalisaBotao(){
   bool BotaoPressionado = true;
   while(BotaoPressionado){
 
-    if(digitalRead(BotA)){
+    if(!digitalRead(BotA)){
       BotaoPressionado = false;
       return 'A';
-    }else if(digitalRead(BotB)){
+    }else if(!digitalRead(BotB)){
       BotaoPressionado = false;
       return 'B';
-    }else if(digitalRead(BotC)){
+    }else if(!digitalRead(BotC)){
       BotaoPressionado = false;
       return 'C';
-    }else if(digitalRead(BotD)){
+    }else if(!digitalRead(BotD)){
       BotaoPressionado = false;
       return 'D';
     }
